@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Pie Chart</title>
+	</head>
+	<body>
+        <h1>Loading</h1>
+        <div Class="chart" data-percent="73">73%</div>
+    </body>
+    <script>
+        var element = document.getElementById('chart');
+         new EasyPieChart(element, {
+            barColor: function(percent) {
+            var ctx = this.renderer.getCtx();
+            var canvas = this.renderer.getCanvas();
+            var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
+            gradient.addColorStop(0, "#ffe57e");
+            gradient.addColorStop(1, "#de5900");
+            return gradient;
+            }
+        });
+    </script>
+</html>
