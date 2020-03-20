@@ -34,9 +34,25 @@ class ViewController {
     res.render(this.ejs);
   }
 
+  evalueringerTypePage(req, res){
+    if (req.params.type === `flashcard`){
+      this.ejs = path.join(`${this.root}/www/views/evalueringerFlashcard.ejs`);
+      res.render(this.ejs);
+    }
+    else if (req.params.type === `quiz`){
+      this.ejs = path.join(`${this.root}/www/views/evalueringerQuiz.ejs`);
+      res.render(this.ejs);
+    }
+  }
+
   rapportPage(req, res) {
     this.ejs = path.join(`${this.root}/www/views/rapport.ejs`);
     res.render(this.ejs);
+  }
+
+  rapportAfsnitPage(req, res) {
+    this.ejs = path.join(`${this.root}/www/views/rapportafsnit.ejs`);
+    res.render(this.ejs, {section: req.params.afsnit});
   }
 }
 
