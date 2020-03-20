@@ -4,6 +4,7 @@ const mysql = require(`mysql`);
 
 const { ViewController } = require(`../ViewController/ViewController.js`);
 
+
 class Server {
   constructor() {
     this.name = `Server`;

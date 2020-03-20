@@ -47,7 +47,13 @@ class ViewController {
 
   rapportPage(req, res) {
     this.ejs = path.join(`${this.root}/www/views/rapport.ejs`);
-    res.render(this.ejs);
+    let sectionDatabase = [
+      {section: 2.1, content: {keywords: ['vidensdeling', 'feed-up', 'feed-forward']}},
+      {section: 2.2, content: {keywords: ['studier', 'evaluering', 'formativ', 'summativ']}},
+      {section: 2.3, content: {keywords: ['metoder', 'active recall', 'spaced repetition']}},
+      {section: 2.4, content: {keywords: ['SOTA', 'classkick', 'kahoot!']}},
+  ];
+    res.render(this.ejs, {afsnitDatabase: sectionDatabase});
   }
 
   rapportAfsnitPage(req, res) {
