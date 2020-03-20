@@ -13,14 +13,11 @@
                     </nav> 
                 </div>
                 <div class="col-12">
-                    <h1> Afsnit: <%= section %></h1>
+                    <h1> Afsnit: <%= section %></h1><br>
                 </div>
                 <section>
-                    <p> Afsnit: </p>
-                        <br>
-                    </p> Keywords for afsnit: <%= afsnitDatabase[0].content.keywords.toString() %> </p>
+                    <p> Keywords for afsnit: <%= content.get(2.1) %> </p>
                     <!---   Her skal vi dynamisk vise det afsnit der bedes om i browseren -->
-
                 </section>
             </div>
         </div>

@@ -23,11 +23,3 @@ console.log(window.location.href);
 
 showImages();
 
-let sectionDatabase = [
-    {section: 2.1, content: {keywords: ['vidensdeling', 'feed-up', 'feed-forward']}},
-    {section: 2.2, content: {keywords: ['studier', 'evaluering', 'formativ', 'summativ']}},
-    {section: 2.3, content: {keywords: ['metoder', 'active recall', 'spaced repetition']}},
-    {section: 2.4, content: {keywords: ['SOTA', 'classkick', 'kahoot!']}},
-];
-
-console.log(sectionDatabase[0].content.keywords);
