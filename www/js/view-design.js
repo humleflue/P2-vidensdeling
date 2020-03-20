@@ -29,3 +29,5 @@ let sectionDatabase = [
     {section: 2.3, content: {keywords: ['metoder', 'active recall', 'spaced repetition']}},
     {section: 2.4, content: {keywords: ['SOTA', 'classkick', 'kahoot!']}},
 ];
+
+console.log(sectionDatabase[0].content.keywords);
