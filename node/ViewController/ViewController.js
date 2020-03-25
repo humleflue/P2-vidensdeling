@@ -64,8 +64,9 @@ class ViewController {
     const doc = new Document(req);
     const data = await doc.getAllSections();
     console.log(data);
-    this.ejs = path.join(`${this.root}/www/views/rapport.ejs`).Document();
+    this.ejs = path.join(`${this.root}/www/views/rapport.ejs`);
     // renderElementList(this.ejs,data," ");
+    let besked = "<div>sdjsfhfsdh</div>"
     // this.ejs = this.insertSections(this.ejs,data);
     const besked = { title: `hej Jacob` };
     res.render(this.ejs, { hej: besked.title });
