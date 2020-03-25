@@ -66,9 +66,9 @@ class ViewController {
     console.log(data);
     this.ejs = path.join(`${this.root}/www/views/rapport.ejs`).Document();
     // renderElementList(this.ejs,data," ");
-    //this.ejs = this.insertSections(this.ejs,data);
-    const besked = {title: "hej Jacob"}
-    res.render(this.ejs, {besked:besked});
+    // this.ejs = this.insertSections(this.ejs,data);
+    const besked = { title: `hej Jacob` };
+    res.render(this.ejs, { hej: besked.title });
   }
 
   rapportSectionPage(req, res) {
