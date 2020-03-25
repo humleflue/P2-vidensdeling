@@ -19,7 +19,7 @@ const titles = [`Key word 1`, `Key word 2`, `Key word 3`, `Key word 4`, `Key wor
 const content = [`Content : Key word 1 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 2 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 3 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 4 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 5 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 6 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 7 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 8 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 9 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 10 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 11 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 12 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`, `Content : Key word 13 Ave verum corpus,est in ad hoc triagtig fyldingen snustrok`];
 const elementTypes = [`Section`, `Quizz`, `Flashcard`];
 let deck = new Array();
-
+let besked = "hej hej Mike"
 
 // class Card {
 // 	constructor(){
@@ -125,37 +125,74 @@ function getKeywordsFrom(SectionID) {
   return titles[SectionID];
 }
 
+function createCardButtons(element) {
+	let buttons = [];
+	switch (element.ElementType) {
+      case `Section`:
+			  let ShowDocumentButton = "show"
+			  let CreateEvaluations =	"create Evaluation"
+			  let StartEval = "start Evaluation"
+			  buttons.push(ShowDocumentButton,StartEval,CreateEvaluations);
+        break;
 
-function renderElementList(elementList) {
+      case `Quizz`:
+        console.log("Quizz not implemented")
+        break;
+
+        case `Flashcard`:
+			  console.log("Flashcard not implemented");
+        break;
+
+      default:  
+        break;
+	  }
+	  return buttons;
+}
+
+//elementlist skal indeholde objekter med:
+//ElementType
+//Title
+//Content
+//ID
+function renderElementList(elementList) {	
+	let buttonlist = [];
   document.getElementById(`deck`).innerHTML = ``;
   for (let i = 0; i < elementList.length; i++) {
-    const card = document.createElement(`div`);
-    const value = document.createElement(`div`);
-    const elementType = document.createElement(`div`);
-    const content = document.createElement(`div`);
-    // switch (card.className) {
-    //     case "Section": card.className =
+	elementList[i].buttons = createCardButtons(elementList[i])
+  const card = document.createElement(`div`);
+  const value = document.createElement(`div`);
+  const elementType = document.createElement(`div`);
+	const content = document.createElement(`div`);
+	let buttons = document.createElement(`div`);
+	// for (button in elementList[i].buttons) {
+    
+  // }
+	// 	buttons.createElement(`div`).innerHTML = button.title;
+		
+	// };
+    
 
-    //         break;
-
-    //     default:
-    //         break;
-    // }
-
-    card.className = `card`;
-    value.className = `value`;
-    content.className = `content${elementList[i].ElementType}`;
-    elementType.className = `elementType${elementList[i].ElementType}`;
+  card.className = `card`;
+  value.className = `value`;
+  content.className = `content${elementList[i].ElementType}`;
+	elementType.className = `elementType${elementList[i].ElementType}`;
+	buttons.className = `${elementList[i].ElementType}buttons`
+	
 
     // card.classList.add("card")
 
-    elementType.innerHTML = elementList[i].ElementType;
-    value.innerHTML = elementList[i].Value;
-    content.innerHTML = elementList[i].Content;
+  elementType.innerHTML = elementList[i].ElementType;
+  value.innerHTML = elementList[i].Value;
+	content.innerHTML = elementList[i].Content;
+	if (elementList[i].buttons[0] != null){
+		buttons.innerHTML = elementList[i].buttons[0]
+	}
+	
 
-    card.appendChild(elementType);
-    card.appendChild(value);
-    card.appendChild(content);
+  card.appendChild(elementType);
+  card.appendChild(value);
+	card.appendChild(content);
+	card.appendChild(buttons);
 
     document.getElementById(`deck`).appendChild(card);
   }

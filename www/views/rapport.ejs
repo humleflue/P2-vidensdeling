@@ -3,11 +3,12 @@
     <head>
         <%- include('meta/header') %> 
         <link href="css/design.css" rel="stylesheet">
+        <link href="css/elementList.css" rel="stylesheet">
     </head>
     <body>
+    
         <%- include('meta/navbar') %> 
-
-       
+        <div class="container"><%= besked%></div>
        <button class="getSection" id="section_id_77">Click here to get a very specific section, with the id: 77!</button>
 
 
@@ -25,7 +26,7 @@
                 <div class="row">
         
                         <div class="col">
-                            <div class="leftside" id="deck">
+                            <div id="leftside" class= "deck">
                                 <a href="/rapport/<%= 2.1 %>"> 
                                     <img id="afsnit2-1" src="img/Design/cardview1.png" href="/rapportafsnit">
                                 </a><br>
@@ -43,7 +44,7 @@
                         </div>
         
                         <div class="col">
-                            <div class="rightside">
+                            <div class="rightside" id = "deck">
                                 <a href="/rapport/<%= 3.1 %>"> 
                                     <img id="afsnit3-1" src="img/Design/cardview1.png" href="/rapportafsnit">
                                 </a><br>

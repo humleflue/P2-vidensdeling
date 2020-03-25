@@ -9,7 +9,7 @@ class Document extends Database {
   }
 
   getAllSections(){
-      return this.get(`*`, `title = "123"`)
+      return this.get(`*`, `title IS NOT NULL`)
       .then((result) => result)
       .catch((error) => error);
   }

@@ -64,9 +64,11 @@ class ViewController {
     const doc = new Document(req);
     const data = await doc.getAllSections();
     console.log(data);
-    this.ejs = path.join(`${this.root}/www/views/rapport.ejs`);
+    this.ejs = path.join(`${this.root}/www/views/rapport.ejs`).Document();
+    // renderElementList(this.ejs,data," ");
     //this.ejs = this.insertSections(this.ejs,data);
-    res.render(this.ejs);
+    const besked = {title: "hej Jacob"}
+    res.render(this.ejs, {besked:besked});
   }
 
   rapportSectionPage(req, res) {
@@ -82,6 +84,52 @@ class ViewController {
     res.render(this.ejs, { section: req.params.afsnit, content: sectionDatabase });
   }
 }
+
+
+
+function renderElementList(thisDocument,elementList, tag) {	
+	// let buttonlist = [];
+  thisDocument.document.getElementById(`deck`).innerHTML = ``;
+  // for (let i = 0; i < elementList.length; i++) {
+	// elementList[i].buttons = createCardButtons(elementList[i])
+  
+  const card = thisDocument.document.createElement(`div`);
+  const value = thisDocument.document.createElement(`div`);
+  const elementType = thisDocument.document.createElement(`div`);
+	const content = thisDocument.document.createElement(`div`);
+	// let buttons = thisDocument.document.createElement(`div`);
+	// for (button in elementList[i].buttons) {
+    
+  // }
+	// 	buttons.createElement(`div`).innerHTML = button.title;
+		
+	// };
+    
+
+  card.className = `card`;
+  value.className = `value`;
+  content.className = `content${elementList[i].ElementType}`;
+	elementType.className = `elementType${elementList[i].ElementType}`;
+	// buttons.className = `${elementList[i].ElementType}buttons`
+	
+
+    // card.classList.add("card")
+
+  elementType.innerHTML = elementList[i].ElementType;
+  value.innerHTML = elementList[i].Value;
+	content.innerHTML = elementList[i].Content;
+	// if (elementList[i].buttons[0] != null){
+	// 	buttons.innerHTML = elementList[i].buttons[0]
+	// }
+	
+
+  card.appendChild(elementType);
+  card.appendChild(value);
+	card.appendChild(content);
+	// card.appendChild(buttons);
+
+    thisDocument.getElementById(`deck`).appendChild(card);
+  }
 
 
 module.exports = {
