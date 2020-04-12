@@ -2,6 +2,7 @@
 /* eslint no-console: off */
 const path = require(`path`);
 const { User } = require(`../Models/User`);
+const { Group } = require(`../Models/Group`);
 
 /* UNDER CONSTRUCTION */
 
@@ -11,6 +12,31 @@ class AccessController {
     this.name = `ViewController`;
     this.root = __dirname.slice(0, -(`node/Controllers`.length));
     this.ejs = ``;
+  }
+
+  /* UNDER CONSTRUCTION */
+  /* INDTIL VIDERE KAN DER KUN TILGÅS 1 grupperum og 1 user som automatisk assignes! */
+  accessPoint(req, res) {
+    if (req.session.groupId) {
+      res.redirect(`/home`);
+    }
+    else if (req.session.userId) {
+      res.redirect(`/groups`);
+    }
+    else {
+      res.redirect(`/login`);
+    }
+  }
+
+  /* Formål: At gøre udvikling nemmere, så en genstart af serveren ikke kræver login og valg af gruppe hver gang */
+  async skipAccess(req, res, testUserId, testGroupId) {
+    req.session.username = `Test User`;
+    req.session.loggedin = true;
+    req.session.userId = testUserId;
+
+    req.session.groupname = `Test Group`;
+    req.session.groupId = testGroupId;
+    res.redirect(`home`);
   }
 
   /* UNDER CONSTRUCTION */

@@ -25,6 +25,9 @@ class Server {
     this.name = settings.name;
     this.port = settings.port;
     this.debug = settings.debug;
+    this.skipAccess = settings.skipAccess;
+    this.userId = settings.userId;
+    this.groupId = settings.groupId;
   }
 
   /* Formål: Opstiller alt det middleware som skal aktiveres ved hvert enkelt request.
@@ -53,9 +56,15 @@ class Server {
              der skal bruges for at tilgå et grupperum */
   accessPatterns() {
     const Access = new AccessController();
-    this.app.get(`/register`,                     (req, res) => Access.registerPage(req, res));
-    this.app.get(`/login`,                        (req, res) => Access.loginPage(req, res));
-    this.app.get(`/groups`,                       (req, res) => Access.groupsPage(req, res));
+    if (this.skipAccess) {
+      this.app.get(`/`,         (req, res) => Access.skipAccess(req, res, this.userId, this.groupId));
+    }
+    else {
+      this.app.get(`/`,         (req, res) => Access.accessPoint(req, res));
+      this.app.get(`/register`, (req, res) => Access.registerPage(req, res));
+      this.app.get(`/login`,    (req, res) => Access.loginPage(req, res));
+      this.app.get(`/groups`,   (req, res) => Access.groupsPage(req, res));
+    }
   }
 
   /* Formål: At opstille alle de funktioner som opsætter, ændrer og stopper sessions */
@@ -82,7 +91,6 @@ class Server {
   /* Formål: At redirecte brugeren hen til det korrekte sted, eller vise den korrekte fejlmeddelse */
   redirectPatterns() {
     const Redirect = new RedirectController();
-    this.app.get(`/`, (req, res) => Redirect.accessPoint(req, res));
     this.app.get(`/dbdown`,                (req, res) => Redirect.dbdown(req, res));
     this.app.post(`/upload/rapport`,       (req, res) => Redirect.UploadRapport(req, res));
     this.app.post(`/upload/evalueringer`,  (req, res) => Redirect.UploadEvalueringer(req, res));
