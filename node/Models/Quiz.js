@@ -7,6 +7,7 @@ class Quiz extends Database {
     this.table = `quiz`;
     // Session
     this.groupId = (typeof req.session.groupId  !== `undefined` ? req.session.groupId  : undefined);
+    this.userId  = (typeof req.session.userId    !== `undefined` ? req.session.userId     : undefined);
     // ID
     this.idColumnName = `idquiz`;
     this.queryId = (typeof req.params.queryId       !== `undefined` ? req.session.queryId      : undefined);

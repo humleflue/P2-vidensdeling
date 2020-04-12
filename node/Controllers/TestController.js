@@ -12,7 +12,7 @@ class TestController {
   /* UNDER CONSTRUCTION */
   constructor() {
     this.name = `ViewController`;
-    this.root = __dirname.slice(0, -(`node/Controller`.length));
+    this.root = __dirname.slice(0, -(`node/Controllers`.length));
     this.ejs = ``;
   }
 

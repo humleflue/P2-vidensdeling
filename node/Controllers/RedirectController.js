@@ -9,7 +9,7 @@ class RedirectController {
   /* UNDER CONSTRUCTION */
   constructor() {
     this.name = `RedirectController`;
-    this.root = __dirname.slice(0, -(`node/Controller`.length));
+    this.root = __dirname.slice(0, -(`node/Controllers`.length));
     this.ejs = ``;
   }
 
@@ -22,8 +22,6 @@ class RedirectController {
   /* UNDER CONSTRUCTION */
   /* INDTIL VIDERE KAN DER KUN TILGÅS 1 grupperum og 1 user som automatisk assignes! */
   accessPoint(req, res) {
-    req.session.groupId = `34701dd1-7c29-11ea-86e2-2c4d54532c7a`;
-    req.session.userId = `553e422d-7c29-11ea-86e2-2c4d54532c7a`;
     if (req.session.groupId) {
       res.redirect(`/home`);
     }
@@ -43,6 +41,7 @@ class RedirectController {
       res.redirect(`/dbdown`);
     }
     else if (this.data.length > 0) {
+      req.session.userId = currentUser.queryId;
       req.session.loggedin = true;
       req.session.key = this.data[0].username;
       res.redirect(`/`);

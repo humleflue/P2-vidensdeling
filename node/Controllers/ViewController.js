@@ -14,12 +14,13 @@ class ViewController {
   /* UNDER CONSTRUCTION */
   constructor() {
     this.name = `ViewController`;
-    this.root = __dirname.slice(0, -(`node/Controller`.length));
+    this.root = __dirname.slice(0, -(`node/Controllers`.length));
     this.ejs = ``;
   }
 
   /* UNDER CONSTRUCTION */
   async homePage(req, res) {
+    req.session.groupId = `34701dd1-7c29-11ea-86e2-2c4d54532c7a`;
     const U = new User(req);
     U.groupId = `34701dd1-7c29-11ea-86e2-2c4d54532c7a`;
     U.queryId = `553e422d-7c29-11ea-86e2-2c4d54532c7a`;
@@ -29,34 +30,6 @@ class ViewController {
     console.log(data);
     this.ejs = path.join(`${this.root}/www/views/home.ejs`);
     res.render(this.ejs, { data });
-  }
-
-  /* UNDER CONSTRUCTION */
-  groupsPage(req, res) {
-    const U = new User(req);
-    const data = {
-      group: U.getAll(`group`),
-    };
-    this.ejs = path.join(`${this.root}/www/views/groups.ejs`);
-    res.render(this.ejs, { data });
-  }
-
-  /* UNDER CONSTRUCTION */
-  registerPage(req, res) {
-    const Registered = new User(req);
-    if (Registered.alreadyLoggedIn()) {
-      res.redirect(`/`);
-    }
-    else {
-      this.ejs = path.join(`${this.root}/www/views/register.ejs`);
-      res.render(this.ejs);
-    }
-  }
-
-  /* UNDER CONSTRUCTION */
-  loginPage(req, res) {
-    this.ejs = path.join(`${this.root}/www/views/login.ejs`);
-    res.render(this.ejs);
   }
 
   // Formål: Viser alle tilg�ngelige evalueringer i gruppen p� siden evalueringer.ejs

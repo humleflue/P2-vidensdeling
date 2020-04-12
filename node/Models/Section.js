@@ -13,6 +13,7 @@ class Section extends Database {
     this.table = `document_section`;
     // Session
     this.groupId        = (typeof req.session.groupId     !== `undefined` ? req.session.groupId     : undefined);
+    this.userId  = (typeof req.session.userId    !== `undefined` ? req.session.userId     : undefined);
     // ID
     this.idColumnName = `document_section`;
     this.queryId      = (typeof req.params.queryId    !== `undefined` ? req.params.queryId    : undefined);

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('meta/header') %> 
+    <title>Groups</title>
+  </head>
+  <body>
+    <%- include('meta/navbar') %> 
+    <div class="container" id="content">
+      <div class="row">
+        <% data.group.forEach((element) => { %>
+          <div class="login-form">
+            <form action="auth/group" method="POST">
+                <label for="fname"><% element.name %></label>
+				<input value="<% element.groupId %>" type="submit"> 
+			</form>
+          </div>
+        <% }); %>
+        <div class="login-form">
+			<h3>New Group</h3>
+			<form action="create/group" method="POST">
+				<input type="text" name="name" placeholder="Group Name" required>
+				<input type="submit">
+			</form>
+		</div>
+      </div>
+    </div>
+    <%- include('meta/footer') %> 
+  </body>
+</html>

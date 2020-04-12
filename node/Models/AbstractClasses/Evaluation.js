@@ -1,4 +1,4 @@
-const { Database } = require(`../Database/Database.js`);
+const { Database } = require(`./Database.js`);
 
 /* UNDER CONSTRUCTION */
 

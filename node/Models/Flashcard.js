@@ -9,6 +9,7 @@ class Flashcard extends Evaluation {
     this.table = `flashcard`;
     // Session
     this.groupId = (typeof req.session.groupId  !== `undefined` ? req.session.groupId  : undefined);
+    this.userId  = (typeof req.session.userId    !== `undefined` ? req.session.userId     : undefined);
     // ID
     this.idColumnName = `flashcard`;
     this.queryId = (typeof req.params.queryId !== `undefined` ? req.session.queryId : undefined);

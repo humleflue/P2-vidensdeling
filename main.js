@@ -1,4 +1,4 @@
-const { Server } = require(`./node/Server/Server.js`);
+const { Server } = require(`./node/Server.js`);
 
 const devSettings = {
   name: `Developmentserver`,
@@ -22,3 +22,11 @@ const prodSettings = {
 const Dev = new Server(devSettings);
 
 Dev.startServer();
+
+/* DOKUMENTATIONS NOTER */
+/* Alle parameterløse metodekald tilhører objektet selv.
+ * Metoder der kræver parametre er dermed noget der tilhører et overobjekt.
+ * Muligheden for at slå fra "development mode" til "production" kunne sættes op fra Server klassen
+ *
+ *
+ */

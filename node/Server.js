@@ -6,6 +6,8 @@ const session = require(`express-session`);
 const bodyParser = require(`body-parser`);
 
 const { ViewController } = require(`./Controllers/ViewController`);
+const { AccessController } = require(`./Controllers/AccessController`);
+const { SessionController } = require(`./Controllers/SessionController`);
 const { RedirectController } = require(`./Controllers/RedirectController`);
 const { CreateController } = require(`./Controllers/CreateController`);
 const { TestController } = require(`./Controllers/TestController`);
@@ -18,7 +20,7 @@ const pad = require(`./HelperFunctions/Pad`);
 class Server {
   constructor(settings) {
     this.app = express();
-    this.root = __dirname.slice(0, -(`node/Server`.length));
+    this.root = __dirname.slice(0, -(`node`.length));
 
     this.name = settings.name;
     this.port = settings.port;
@@ -35,6 +37,8 @@ class Server {
     this.bodyParserMiddleware();
     this.sessionMiddleware();
 
+    this.sessionPatterns();
+    this.accessPatterns();
     this.viewPatterns();
     this.redirectPatterns();
     this.createPatterns();
@@ -45,13 +49,26 @@ class Server {
     return this.app.listen(this.port, () => console.log(`${this.name} startin up on ${this.port}`));
   }
 
-  /* UNDER CONSTRUCTION */
+  /* Formål: At opstille alle de funktioner som loader og viser de ejs filer
+             der skal bruges for at tilgå et grupperum */
+  accessPatterns() {
+    const Access = new AccessController();
+    this.app.get(`/register`,                     (req, res) => Access.registerPage(req, res));
+    this.app.get(`/login`,                        (req, res) => Access.loginPage(req, res));
+    this.app.get(`/groups`,                       (req, res) => Access.groupsPage(req, res));
+  }
+
+  /* Formål: At opstille alle de funktioner som opsætter, ændrer og stopper sessions */
+  sessionPatterns() {
+    const Session = new SessionController();
+    this.app.post(`/auth/user`, (req, res) => Session.userSession(req, res));
+    this.app.post(`/auth/group`, (req, res) => Session.groupSession(req, res));
+  }
+
+  /* Formål: At opstille alle de funkktioner som loader en ejs fil og viser en side i et grupperum */
   viewPatterns() {
     const Show = new ViewController();
     this.app.get(`/home`,                             (req, res) => Show.homePage(req, res));
-    this.app.get(`/register`,                     (req, res) => Show.registerPage(req, res));
-    this.app.get(`/login`,                        (req, res) => Show.loginPage(req, res));
-    this.app.get(`/groups`,                       (req, res) => Show.groupsPage(req, res));
     this.app.get(`/evalueringer`,                 (req, res) => Show.evalueringerPage(req, res));
     this.app.get(`/evalueringer/quiz/:queryId`,        (req, res) => Show.quizPage(req, res));
     this.app.get(`/evalueringer/flashcard/:queryId`,   (req, res) => Show.flashcardPage(req, res));
@@ -62,12 +79,11 @@ class Server {
     this.app.get(`/upload/:type`,                 (req, res) => Show.uploadPage(req, res));
   }
 
-  /* UNDER CONSTRUCTION */
+  /* Formål: At redirecte brugeren hen til det korrekte sted, eller vise den korrekte fejlmeddelse */
   redirectPatterns() {
     const Redirect = new RedirectController();
     this.app.get(`/`, (req, res) => Redirect.accessPoint(req, res));
     this.app.get(`/dbdown`,                (req, res) => Redirect.dbdown(req, res));
-    this.app.post(`/auth`,                 (req, res) => Redirect.auth(req, res));
     this.app.post(`/upload/rapport`,       (req, res) => Redirect.UploadRapport(req, res));
     this.app.post(`/upload/evalueringer`,  (req, res) => Redirect.UploadEvalueringer(req, res));
     this.app.post(`/register`,             (req, res) => Redirect.RegisterNewUser(req, res));

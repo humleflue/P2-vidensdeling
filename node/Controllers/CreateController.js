@@ -1,7 +1,7 @@
 /* eslint-disable guard-for-in */
 /* eslint no-console: off */
-const { User } = require(`../User/User`);
-const { Group } = require(`../Group/Group`);
+const { User } = require(`../Models/User`);
+const { Group } = require(`../Models/Group`);
 
 /* UNDER CONSTRUCTION */
 
@@ -9,7 +9,7 @@ class CreateController {
   /* UNDER CONSTRUCTION */
   constructor() {
     this.name = `CreateController`;
-    this.root = __dirname.slice(0, -(`node/${this.name}`.length));
+    this.root = __dirname.slice(0, -(`node/Controllers`.length));
   }
 
   /* UNDER CONSTRUCTION */

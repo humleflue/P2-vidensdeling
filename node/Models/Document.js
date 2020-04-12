@@ -11,6 +11,7 @@ class Document extends Database {
     this.table       = `document`;
     // Session from session
     this.groupId = (typeof req.session.groupId   !== `undefined` ? req.session.groupId    : undefined);
+    this.userId  = (typeof req.session.userId    !== `undefined` ? req.session.userId     : undefined);
     // ID from params
     this.idColumnName = `iddocument`;
     this.queryId      = (typeof req.params.queryId !== `undefined` ? req.session.queryId : undefined);

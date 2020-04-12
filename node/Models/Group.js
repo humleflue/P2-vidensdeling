@@ -10,10 +10,11 @@ class Group extends Database {
     this.elementtype = `group`;
     this.table = `group`;
     // Session
-    this.idGroup = (typeof req.session.idGroup        !== `undefined` ? req.session.idGroup       : undefined);
+    this.groupId = (typeof req.session.groupId        !== `undefined` ? req.session.groupId       : undefined);
+    this.userId  = (typeof req.session.userId         !== `undefined` ? req.session.userId        : undefined);
     // ID
     this.idColumnName = `iduser_group`;
-    this.queryId = (typeof req.params.idGroup         !== `undefined` ? req.params.idGroup        : undefined);
+    this.queryId = (typeof req.params.groupId         !== `undefined` ? req.params.groupId        : undefined);
     // Columns
     this.name = (typeof req.body.name !== `undefined` ? req.body.name : undefined);
   }
