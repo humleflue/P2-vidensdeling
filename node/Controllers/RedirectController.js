@@ -1,7 +1,7 @@
 /* eslint no-console: off */
 
 const path = require(`path`);
-const { User } = require(`../User/User.js`);
+const { User } = require(`../Models/User.js`);
 
 /* UNDER CONSTRUCTION */
 
@@ -9,7 +9,7 @@ class RedirectController {
   /* UNDER CONSTRUCTION */
   constructor() {
     this.name = `RedirectController`;
-    this.root = __dirname.slice(0, -(`node/${this.name}`.length));
+    this.root = __dirname.slice(0, -(`node/Controller`.length));
     this.ejs = ``;
   }
 

@@ -5,21 +5,17 @@ const upload = require(`express-fileupload`);
 const session = require(`express-session`);
 const bodyParser = require(`body-parser`);
 
-const { ViewController } = require(`../ViewController/ViewController`);
-const { RedirectController } = require(`../RedirectController/RedirectController`);
-const { CreateController } = require(`../ViewController/CreateController`);
-const { TestController } = require(`./TestController`);
-const pad = require(`./Pad`);
+const { ViewController } = require(`./Controllers/ViewController`);
+const { RedirectController } = require(`./Controllers/RedirectController`);
+const { CreateController } = require(`./Controllers/CreateController`);
+const { TestController } = require(`./Controllers/TestController`);
+const pad = require(`./HelperFunctions/Pad`);
 
-/* Server er et objekt der opretter webapplikationen, og håndtere dermed socket/TCP laget af webprogrammet.
+/* Server er et objekt der opretter webapplikationen.
  * Server fungere dermed som den primære indgangsvinkel til programmet, og alle dele af programmet kan udledes herfra.
+ * Server konstrueres ud fra nogle definerede settings, så det er muligt at opstarte en server i forskellige tilstande.
  */
 class Server {
-  /* Formål: At kunne give definere programmæsige settings et sted, så det er muligt
-   *         at opstarte en server i forskellige tilstande.
-   * Input: Settings som er defineret i main.js.
-   * Output: En server der er oprettet på sin angivne port.
-   */
   constructor(settings) {
     this.app = express();
     this.root = __dirname.slice(0, -(`node/Server`.length));

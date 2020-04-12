@@ -1,12 +1,12 @@
 /* eslint-disable guard-for-in */
 /* eslint no-console: off */
 const path = require(`path`);
-const { Document } = require(`../Document/Document`);
-const { Section } = require(`../Section/Section`);
-const { Quiz } = require(`../Evaluation/Quiz`);
-const { Flashcard } = require(`../Evaluation/Flashcard`);
-const { Group } = require(`../Group/Group`);
-const { User } = require(`../User/User`);
+const { Document } = require(`../Models/Document`);
+const { Section } = require(`../Models/Section`);
+const { Quiz } = require(`../Models/Quiz`);
+const { Flashcard } = require(`../Models/Flashcard`);
+const { Group } = require(`../Models/Group`);
+const { User } = require(`../Models/User`);
 
 /* UNDER CONSTRUCTION */
 
@@ -14,7 +14,7 @@ class ViewController {
   /* UNDER CONSTRUCTION */
   constructor() {
     this.name = `ViewController`;
-    this.root = __dirname.slice(0, -(`node/${this.name}`.length));
+    this.root = __dirname.slice(0, -(`node/Controller`.length));
     this.ejs = ``;
   }
 

@@ -2,7 +2,7 @@
 const tape = require(`tape`);
 const testDecorater = require(`tape-promise`).default;
 const test = testDecorater(tape);
-const { ParseSql } = require(`../../../node/Database/ParseSQL`);
+const { ParseSql } = require(`../../../node/Models/AbstractClasses/ParseSQL.js`);
 const p = new ParseSql();
 let actual = true;
 let expected = true;

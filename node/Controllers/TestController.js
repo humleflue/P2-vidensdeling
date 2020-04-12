@@ -3,7 +3,7 @@
 // const { Section } = require(`../Section/Section`);
 // const { Quiz } = require(`../Evaluation/Quiz`);
 // const { Flashcard } = require(`../Evaluation/Flashcard`);
-const { Group } = require(`../Group/Group`);
+const { Group } = require(`../Models/Group`);
 // const { User } = require(`../User/User`);
 
 /* UNDER CONSTRUCTION */
@@ -12,7 +12,7 @@ class TestController {
   /* UNDER CONSTRUCTION */
   constructor() {
     this.name = `ViewController`;
-    this.root = __dirname.slice(0, -(`node/${this.name}`.length));
+    this.root = __dirname.slice(0, -(`node/Controller`.length));
     this.ejs = ``;
   }
 
@@ -22,8 +22,7 @@ class TestController {
     const data = {
       document: await G.getAll(`document`),
     };
-    console.log(data);
-    res.send(`Yes its a test!`);
+    res.send(`Yes its a test! the documents are ${data}`);
   }
 
   async test2(req, res) {

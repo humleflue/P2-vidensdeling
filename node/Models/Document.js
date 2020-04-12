@@ -1,25 +1,20 @@
 /* eslint no-console: off */
 
-const { Database } = require(`../Database/Database.js`);
-// Children
-const { Section } = require(`../Section/Section`);
-const { Keyword } = require(`../Section/Keyword`);
+const { Database } = require(`./AbstractClasses/Database.js`);
+
+/* UNDER CONSTRUCTION */
 
 class Document extends Database {
-  /* UNDER CONSTRUCTION: Dette er en prøve!!!
-   */
   constructor(req) {
     super();
     this.elementtype = `document`;
     this.table       = `document`;
-    // ID
+    // Session from session
+    this.groupId = (typeof req.session.groupId   !== `undefined` ? req.session.groupId    : undefined);
+    // ID from params
     this.idColumnName = `iddocument`;
     this.queryId      = (typeof req.params.queryId !== `undefined` ? req.session.queryId : undefined);
-    // Parents
-    this.groupId = (typeof req.session.groupId   !== `undefined` ? req.session.groupId    : undefined);
-    this.userId  = null;
-    this.documentId = this.queryId;
-    // Columns
+    // Columns from body
     this.title   = (typeof req.body.title      !== `undefined` ? req.body.title      : undefined);
   }
 }
