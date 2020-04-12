@@ -14,7 +14,7 @@ class User extends Database {
     this.userId  = (typeof req.session.userId    !== `undefined` ? req.session.userId     : undefined);
     // ID
     this.idColumnName = `iduser`;
-    this.queryId       = (typeof req.params.queryId       !== `undefined` ? req.session.queryId      : undefined);
+    this.queryId       = (typeof req.params.queryId       !== `undefined` ? req.session.queryId      : req.session.userId);
     // Columns
     this.username     = (typeof req.body.username       !== `undefined` ? req.body.username       : undefined);
     this.password     = (typeof req.body.password       !== `undefined` ? req.body.password       : undefined);

@@ -5,24 +5,20 @@
     <title>Groups</title>
   </head>
   <body>
-    <%- include('meta/navbar') %> 
     <div class="container" id="content">
       <div class="row">
-        <% data.group.forEach((element) => { %>
-          <div class="login-form">
-            <form action="auth/group" method="POST">
-                <label for="fname"><% element.name %></label>
-				<input value="<% element.groupId %>" type="submit"> 
-			</form>
+          <div class="col-sm-12">
+            <h1>Choose one of the groups</h1>
           </div>
-        <% }); %>
-        <div class="login-form">
-			<h3>New Group</h3>
-			<form action="create/group" method="POST">
-				<input type="text" name="name" placeholder="Group Name" required>
-				<input type="submit">
-			</form>
-		</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <% data.group.forEach((element) => { %>
+            <a href="session/group/<%= element.iduser_group %>">
+              <h2><%= element.name %></h2>
+            </a> 
+          <% }); %>
+        </div>
       </div>
     </div>
     <%- include('meta/footer') %> 

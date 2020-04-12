@@ -20,14 +20,11 @@ class ViewController {
 
   /* UNDER CONSTRUCTION */
   async homePage(req, res) {
-    req.session.groupId = `34701dd1-7c29-11ea-86e2-2c4d54532c7a`;
     const U = new User(req);
-    U.groupId = `34701dd1-7c29-11ea-86e2-2c4d54532c7a`;
-    U.queryId = `553e422d-7c29-11ea-86e2-2c4d54532c7a`;
     const data = {
       user: await U.getThis(),
+      req,
     };
-    console.log(data);
     this.ejs = path.join(`${this.root}/www/views/home.ejs`);
     res.render(this.ejs, { data });
   }

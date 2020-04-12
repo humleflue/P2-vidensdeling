@@ -62,7 +62,7 @@ class Server {
   sessionPatterns() {
     const Session = new SessionController();
     this.app.post(`/auth/user`, (req, res) => Session.userSession(req, res));
-    this.app.post(`/auth/group`, (req, res) => Session.groupSession(req, res));
+    this.app.get(`/session/group/:queryId`, (req, res) => Session.groupSession(req, res));
   }
 
   /* Formål: At opstille alle de funkktioner som loader en ejs fil og viser en side i et grupperum */

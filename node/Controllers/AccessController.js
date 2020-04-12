@@ -14,10 +14,11 @@ class AccessController {
   }
 
   /* UNDER CONSTRUCTION */
-  groupsPage(req, res) {
+  async groupsPage(req, res) {
     const U = new User(req);
+    U.table = `user_group`;
     const data = {
-      group: U.getAll(`group`),
+      group: await U.query(`SELECT *`, `${U.idColumnName} = "${U.queryId}"`),
     };
     this.ejs = path.join(`${this.root}/www/views/groups.ejs`);
     res.render(this.ejs, { data });

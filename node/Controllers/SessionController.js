@@ -1,8 +1,11 @@
 /* eslint-disable guard-for-in */
 /* eslint no-console: off */
 const { User } = require(`../Models/User`);
+const { Group } = require(`../Models/Group`);
 
-/* UNDER CONSTRUCTION */
+/* Controllere for sessions
+ * Omdirigere altid til `/` (som det står nu)
+ */
 
 class SessionController {
   constructor() {
@@ -10,6 +13,10 @@ class SessionController {
     this.root = __dirname.slice(0, -(`node/Controllers`.length));
   }
 
+  /* Formål: At validere et login og oprette brugerens session som den bruger der er logget ind med
+   * Input : username og password
+   * Output: redirect til `/`
+   */
   async userSession(req, res) {
     const currentUser = new User(req);
     const data = await currentUser.loginValid();
@@ -17,11 +24,9 @@ class SessionController {
       res.redirect(`/dbdown`);
     }
     else if (data.length > 0) {
-      console.log(data);
       req.session.userId = data[0].iduser;
       req.session.loggedin = true;
       req.session.username = data[0].username;
-      console.log(req.session.userId);
       res.redirect(`/`);
     }
     else {
@@ -29,20 +34,23 @@ class SessionController {
     }
   }
 
+  /* Formål: At oprette den session som bestemmer hvilken gruppe brugeren er tilkoblet.
+   * Input : et groupId
+   * Output: redirect til `/`
+   */
   async groupSession(req, res) {
-    const currentUser = new User(req);
-    this.data = await currentUser.loginValid();
-    if (this.data.fatal) {
-      res.redirect(`/dbdown`);
-    }
-    else if (this.data.length > 0) {
-      req.session.userId = currentUser.getThis(``);
-      req.session.loggedin = true;
-      req.session.key = this.data[0].username;
+    console.log(req.params.queryId);
+    const G = new Group(req);
+    console.log(`id: ${G.queryId}, \nuserid: ${G.userId}, \nname: ${G.name}`);
+    const data = await G.getThis();
+    console.log(data);
+    if (data) {
+      req.session.groupId = data[0].iduser_group;
+      req.session.groupname = data[0].name;
       res.redirect(`/`);
     }
     else {
-      res.redirect(`/register`);
+      res.redirect(`/groups`);
     }
   }
 }
