@@ -18,9 +18,10 @@ class User extends Database {
     super();
     this.elementtype = `user`;
     this.table = `user`;
+    this.idColumnName = `iduser`;
 
-    // this.idGroup      = (typeof req.session.idGroup     !== `undefined` ? req.session.idGroup     : undefined);
-    this.idUser       = (typeof req.params.idUser       !== `undefined` ? req.session.idUser      : undefined);
+    this.groupId      = (typeof req.session.groupId     !== `undefined` ? req.session.groupId     : undefined);
+    this.userId       = (typeof req.params.userId       !== `undefined` ? req.session.userId      : undefined);
     this.username     = (typeof req.body.username       !== `undefined` ? req.body.username       : undefined);
     this.password     = (typeof req.body.password       !== `undefined` ? req.body.password       : undefined);
     this.firstName    = (typeof req.body.firstName      !== `undefined` ? req.body.firstName      : undefined);
@@ -29,6 +30,8 @@ class User extends Database {
     this.semester     = (typeof req.body.semester       !== `undefined` ? req.body.semester       : undefined);
     this.university   = (typeof req.body.university     !== `undefined` ? req.body.university     : undefined);
     this.email        = (typeof req.body.email          !== `undefined` ? req.body.email          : undefined);
+
+    this.queryId = this.userId;
   }
 
   /* UNDER CONSTRUCTION */

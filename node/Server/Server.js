@@ -4,8 +4,11 @@ const express = require(`express`);
 const upload = require(`express-fileupload`);
 const session = require(`express-session`);
 const bodyParser = require(`body-parser`);
+
 const { ViewController } = require(`../ViewController/ViewController`);
 const { RedirectController } = require(`../RedirectController/RedirectController`);
+const { CreateController } = require(`../ViewController/CreateController`);
+const { TestController } = require(`./TestController`);
 const pad = require(`./Pad`);
 
 /* Server er et objekt der opretter webapplikationen, og håndtere dermed socket/TCP laget af webprogrammet.
@@ -34,38 +37,66 @@ class Server {
   startServer() {
     this.staticMiddleware();
     this.bodyParserMiddleware();
+    this.sessionMiddleware();
 
-    this.urlPatterns();
+    this.viewPatterns();
     this.redirectPatterns();
+    this.createPatterns();
+    if (this.debug) {
+      this.testPatterns();
+    }
 
     return this.app.listen(this.port, () => console.log(`${this.name} startin up on ${this.port}`));
   }
 
   /* UNDER CONSTRUCTION */
-  urlPatterns() {
+  viewPatterns() {
     const Show = new ViewController();
-    this.app.get(`/`,                             (req, res) => Show.homePage(req, res));
+    this.app.get(`/home`,                             (req, res) => Show.homePage(req, res));
     this.app.get(`/register`,                     (req, res) => Show.registerPage(req, res));
     this.app.get(`/login`,                        (req, res) => Show.loginPage(req, res));
+    this.app.get(`/groups`,                       (req, res) => Show.groupsPage(req, res));
     this.app.get(`/evalueringer`,                 (req, res) => Show.evalueringerPage(req, res));
-    this.app.get(`/evalueringer/quiz/:idQuiz`,        (req, res) => Show.quizPage(req, res));
-    this.app.get(`/evalueringer/flashcard/:idFlashcard`,   (req, res) => Show.flashcardPage(req, res));
+    this.app.get(`/evalueringer/quiz/:queryId`,        (req, res) => Show.quizPage(req, res));
+    this.app.get(`/evalueringer/flashcard/:queryId`,   (req, res) => Show.flashcardPage(req, res));
     // this.app.get(`/evalueringer/:type/:idquiz`,   (req, res) => Show.evalueringerTypePage(req, res));
     this.app.get(`/rapport`,                      (req, res) => Show.rapportPage(req, res));
     this.app.get(`/rapport/:idSection`,  (req, res) => Show.rapportSectionPage(req, res));
     this.app.get(`/elementList`,                  (req, res) => Show.elementList(req, res));
     this.app.get(`/upload/:type`,                 (req, res) => Show.uploadPage(req, res));
-    this.app.get(`/head`, (req, res) => Show.head(req, res));
   }
 
   /* UNDER CONSTRUCTION */
   redirectPatterns() {
     const Redirect = new RedirectController();
+    this.app.get(`/`, (req, res) => Redirect.accessPoint(req, res));
     this.app.get(`/dbdown`,                (req, res) => Redirect.dbdown(req, res));
     this.app.post(`/auth`,                 (req, res) => Redirect.auth(req, res));
     this.app.post(`/upload/rapport`,       (req, res) => Redirect.UploadRapport(req, res));
     this.app.post(`/upload/evalueringer`,  (req, res) => Redirect.UploadEvalueringer(req, res));
     this.app.post(`/register`,             (req, res) => Redirect.RegisterNewUser(req, res));
+  }
+
+  /* Formål: Struktur for de URL Patterns der indsætter data i databasen.
+   * Input : Et request med data der passer til den model der skal oprettes.
+   * Output: Setup af muligheden for klienten at poste data til databasen.
+   */
+  createPatterns() {
+    const Creator = new CreateController();
+    this.app.post(`/post/group`, (req, res) => Creator.createGroup(req, res));
+    this.app.post(`/post/user`, (req, res) => Creator.createUser(req, res));
+  }
+
+  /* Formål: En "catch all" for alle de tests der ønskes at blive lavet, så de ikke "clutter" de andre URL'er til.
+             Alle test skal dog helst følge formattet "/test/IndsætHvadDuVilHer"
+             Test URL's må meget gerne fjernes efter deres test er implementeret.
+   * Input : Unikt for hver url, da dette er lavet for at teste
+   * Output: Setup af muligheden for udviklere at teste ting før de implementeres.
+   */
+  testPatterns() {
+    const Tester = new TestController();
+    this.app.get(`/test`, (req, res) => Tester.test(req, res));
+    this.app.get(`/test2`, (req, res) => Tester.test2(req, res));
   }
 
   /* UNDER CONSTRUCTION */
@@ -81,7 +112,8 @@ class Server {
     this.app.use(bodyParser.json());
   }
 
-  sessionAndCookieMiddleware() {
+  /* UNDER CONSTRUCTION */
+  sessionMiddleware() {
     this.app.use(session({
       key: `user_sid`,
       secret: `SECRET_SALT_CODE_BY_MIKE123456789`,

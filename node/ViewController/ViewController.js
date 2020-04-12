@@ -18,18 +18,27 @@ class ViewController {
     this.ejs = ``;
   }
 
-  /* Dette er lavet for at kunne teste meta data fra SQL databasen */
-  async head(req, res) {
-    const object = new Document(req);
-    console.log(object);
-    console.log(await object.query(`SELECT iddocument`));
-    res.send(`It worked`);
+  /* UNDER CONSTRUCTION */
+  async homePage(req, res) {
+    const U = new User(req);
+    U.groupId = `34701dd1-7c29-11ea-86e2-2c4d54532c7a`;
+    U.queryId = `553e422d-7c29-11ea-86e2-2c4d54532c7a`;
+    const data = {
+      user: await U.getThis(),
+    };
+    console.log(data);
+    this.ejs = path.join(`${this.root}/www/views/home.ejs`);
+    res.render(this.ejs, { data });
   }
 
   /* UNDER CONSTRUCTION */
-  homePage(req, res) {
-    this.ejs = path.join(`${this.root}/www/views/home.ejs`);
-    res.render(this.ejs);
+  groupsPage(req, res) {
+    const U = new User(req);
+    const data = {
+      group: U.getAll(`group`),
+    };
+    this.ejs = path.join(`${this.root}/www/views/groups.ejs`);
+    res.render(this.ejs, { data });
   }
 
   /* UNDER CONSTRUCTION */

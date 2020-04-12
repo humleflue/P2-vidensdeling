@@ -16,26 +16,19 @@ class Flashcard extends Evaluation {
   constructor(req) {
     super();
     this.elementtype = `flashcard`;
-    this.idColumnName = `flashcard`;
     this.table = `flashcard`;
-
-    // this.idGroup = (typeof req.session.idGroup  !== `undefined` ? req.session.idGroup  : undefined);
-    this.idUser = null;
-    this.idDocument = null;
-    this.idSection = null;
+    // ID
+    this.idColumnName = `flashcard`;
     this.queryId = (typeof req.params.idFlashcard       !== `undefined` ? req.session.idFlashcard      : undefined);
-    this.concept = `Not set`;// begreb
-    this.definition = `Not set`;
-  }
-
-  // FIXME: virker ikke!!
-  // Formål: Hent flashcard indhold for det pågældende idflashcard
-  // Input : this.idFlashcard fra constructoren
-  // Output: array med 1 element indeholdende et flashcard
-  async getFlashcard() {
-    return this.query(`SELECT *`, `idflashcard = "${this.idFlashcard}"`)
-      .then((result) => result)
-      .catch((error) => error);
+    // Parents
+    this.groupId = (typeof req.session.groupId  !== `undefined` ? req.session.groupId  : undefined);
+    this.userId = null;
+    this.documentId = null;
+    this.sectionId = null;
+    this.flashcardId = this.queryId;
+    // Columns
+    this.concept    = (typeof req.body.concept    !== `undefined` ? req.body.concept    : undefined);
+    this.definition = (typeof req.body.definition !== `undefined` ? req.body.definition : undefined);
   }
 }
 module.exports = {

@@ -20,6 +20,22 @@ class RedirectController {
   }
 
   /* UNDER CONSTRUCTION */
+  /* INDTIL VIDERE KAN DER KUN TILGÅS 1 grupperum og 1 user som automatisk assignes! */
+  accessPoint(req, res) {
+    req.session.groupId = `34701dd1-7c29-11ea-86e2-2c4d54532c7a`;
+    req.session.userId = `553e422d-7c29-11ea-86e2-2c4d54532c7a`;
+    if (req.session.groupId) {
+      res.redirect(`/home`);
+    }
+    else if (req.session.userId) {
+      res.redirect(`/groups`);
+    }
+    else {
+      res.redirect(`/login`);
+    }
+  }
+
+  /* UNDER CONSTRUCTION */
   async auth(req, res) {
     const currentUser = new User(req);
     this.data = await currentUser.loginValid();

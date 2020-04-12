@@ -23,7 +23,8 @@ class Group extends Database {
     this.idColumnName = `iduser_group`;
     this.table = `group`;
 
-    this.idGroup = (typeof req.params.idGroup       !== `undefined` ? req.session.idGroup      : undefined);
+    this.queryId = (typeof req.session.groupId        !== `undefined` ? req.session.groupId       : undefined);
+    this.groupId = this.queryId;
   }
 
   /* Input : En Group er blevet oprettet med et unikt iduser_group
@@ -32,7 +33,7 @@ class Group extends Database {
    */
   async getAllFlashcards() {
     const flash = new Flashcard();
-    return flash.query(`SELECT *`, `iddocument_section = "${this.idGroup}"`)
+    return flash.query(`SELECT *`)
       .then((result) => result)
       .catch((error) => error);
   }

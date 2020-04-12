@@ -34,6 +34,7 @@ class Database {
     this.table = `database`;
     this.elementtype = `test`;
     this.idColumnName = `iddatabase`;
+    this.idColumnGroup = `iduser_group`;
   }
 
   /* Formål: Naar der sker fejl ved brug af querymetoden vil denne metode give den nodvendige information med det samme.
@@ -96,25 +97,42 @@ class Database {
     });
   }
 
-  /* Formål: Automatisk oprettelse af et objekt når det bliver gettet via et id.
+  /* Formål: Mulighed for at få data der tilhører et objekt med et unikt ID.
    * Input : Et kald fra et unikt objekt, som desuden vælger hvilken kolonne der søges efter.
    * Output: En enkel værdi ud fra id og kolonne, der bruges til at konstruere objektet.
    */
-  async getColumn(choice) {
-    this.query(`SELECT ${choice}`, `${this.idColumnName} = ${this.queryId}`)
+  async getThis(column) {
+    let choice = ``;
+    if (column) {
+      choice = column;
+    }
+    else {
+      choice = `*`;
+    }
+    return this.query(`SELECT ${choice}`, `${this.idColumnName} = "${this.queryId}"`)
       .then((result) => result)
       .catch((error) => error);
   }
 
   /* Formål: En almen funktion så alle objekter der knytter sig til et objekt kan hentes.
              Denne er ment som generel case til at hente FLERE objekter der knytter sig til ET objekt.
-   * Input : Et kald fra et objekt oprettet uden request indeni et andet, unikt oprettet objekt.
+             eksempel kunne være document.getAll(`section`); for at få alle sections tilknyttet et document.
+   * Input : valg af den tabel der ønskes at blive opslået i ud fra et andet objekts id.
    * Output: En liste af underobjekter som er udvalgt ud fra Id'et i det øvre objekt.
    */
-  async getAll() {
-    this.query(`SELECT *`, `${this.idColumnName} = ${this.queryId}`)
-      .then((result) => result)
-      .catch((error) => error);
+  async getAll(choice) {
+    const objectTable = this.table;
+    this.table = choice;
+    this.query(`SELECT *`, `${this.idColumnName} = "${this.queryId}" AND ${this.idColumnGroup} = "${this.groupId}"`)
+      .then((result) => {
+        this.table = objectTable;
+        return result;
+      })
+      .catch((error) => {
+        console.warn(`\n\nDet givne tabelnavn er højst sandsynligt forkert angivet!\n\n`);
+        this.table = objectTable;
+        return error;
+      });
   }
 
   /* Input:  Metoden modtager de valg som brugeren har lavet
