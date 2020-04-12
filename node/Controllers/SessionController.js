@@ -13,14 +13,15 @@ class SessionController {
   async userSession(req, res) {
     const currentUser = new User(req);
     const data = await currentUser.loginValid();
-    if (this.data.fatal) {
+    if (data.fatal) {
       res.redirect(`/dbdown`);
     }
-    else if (this.data.length > 0) {
+    else if (data.length > 0) {
       console.log(data);
-      req.session.userId = 1;
+      req.session.userId = data[0].iduser;
       req.session.loggedin = true;
-      req.session.key = this.data[0].username;
+      req.session.username = data[0].username;
+      console.log(req.session.userId);
       res.redirect(`/`);
     }
     else {
