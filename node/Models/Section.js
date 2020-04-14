@@ -1,14 +1,14 @@
 /* eslint no-console: off */
 
-const { Database } = require(`./AbstractClasses/Database`);
+const { Model } = require(`./AbstractClasses/Model`);
 
 /* Section er det objekt som indeholder data vedrørende de afsnit der findes i et dokument.
  * UDVID MED INFORMATION NÅR SECTION ER DESIGNET
  */
 
-class Section extends Database {
+class Section extends Model {
   constructor(req) {
-    super();
+    super(req);
     this.elementtype = `section`;
     this.table = `document_section`;
     // Session

@@ -97,44 +97,6 @@ class Database {
     });
   }
 
-  /* Formål: Mulighed for at få data der tilhører et objekt med et unikt ID.
-   * Input : Et kald fra et unikt objekt, som desuden vælger hvilken kolonne der søges efter.
-   * Output: En enkel værdi ud fra id og kolonne, der bruges til at konstruere objektet.
-   */
-  async getThis(column) {
-    let choice = ``;
-    if (column) {
-      choice = column;
-    }
-    else {
-      choice = `*`;
-    }
-    return this.query(`SELECT ${choice}`, `${this.idColumnName} = "${this.queryId}"`)
-      .then((result) => result)
-      .catch((error) => error);
-  }
-
-  /* Formål: En almen funktion så alle objekter der knytter sig til et objekt kan hentes.
-             Denne er ment som generel case til at hente FLERE objekter der knytter sig til ET objekt.
-             eksempel kunne være document.getAll(`section`); for at få alle sections tilknyttet et document.
-   * Input : valg af den tabel der ønskes at blive opslået i ud fra et andet objekts id.
-   * Output: En liste af underobjekter som er udvalgt ud fra Id'et i det øvre objekt.
-   */
-  async getAll(choice) {
-    const objectTable = this.table;
-    this.table = choice;
-    this.query(`SELECT *`, `${this.idColumnName} = "${this.queryId}" AND ${this.idColumnGroup} = "${this.groupId}"`)
-      .then((result) => {
-        this.table = objectTable;
-        return result;
-      })
-      .catch((error) => {
-        console.warn(`\n\nDet givne tabelnavn er højst sandsynligt forkert angivet!\n\n`);
-        this.table = objectTable;
-        return error;
-      });
-  }
-
   /* Input:  Metoden modtager de valg som brugeren har lavet
    *         Metoden indtager ogsaa texton parameter, som frakobles info() kald under test af catching af errors, men ellers altid er true.
    * Output: Metoden outputter en brugbar SQL streng til brug i mysql

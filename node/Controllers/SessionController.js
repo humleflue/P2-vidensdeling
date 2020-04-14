@@ -39,11 +39,8 @@ class SessionController {
    * Output: redirect til `/`
    */
   async groupSession(req, res) {
-    console.log(req.params.queryId);
     const G = new Group(req);
-    console.log(`id: ${G.queryId}, \nuserid: ${G.userId}, \nname: ${G.name}`);
     const data = await G.getThis();
-    console.log(data);
     if (data) {
       req.session.groupId = data[0].iduser_group;
       req.session.groupname = data[0].name;

@@ -2,7 +2,7 @@ const { Evaluation } = require(`./AbstractClasses/Evaluation.js`);
 
 class QuizQuestion extends Evaluation {
   constructor(req) {
-    super();
+    super(req);
     this.elementtype = `quiz`;
     this.table = `quiz`;
     // Session

@@ -1,10 +1,10 @@
-const { Database } = require(`../Database/Database.js`);
+const { Model } = require(`./AbstractClasses/Model.js`);
 
 /* UNDER CONSTRUCTION */
 
-class Keyword extends Database {
+class Keyword extends Model {
   constructor(req) {
-    super();
+    super(req);
     this.elementtype = `keyword`;
     this.table = `document_keyword`;
     // Session

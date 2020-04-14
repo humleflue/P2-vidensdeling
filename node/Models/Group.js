@@ -1,12 +1,12 @@
 /* eslint no-console: off */
 
-const { Database } = require(`./AbstractClasses/Database`);
+const { Model } = require(`./AbstractClasses/Model`);
 
 /* UNDER CONSTRUCTION */
 
-class Group extends Database {
+class Group extends Model {
   constructor(req) {
-    super();
+    super(req);
     this.elementtype = `group`;
     this.table = `user_group`;
     // Session

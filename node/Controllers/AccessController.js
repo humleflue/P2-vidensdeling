@@ -2,7 +2,6 @@
 /* eslint no-console: off */
 const path = require(`path`);
 const { User } = require(`../Models/User`);
-const { Group } = require(`../Models/Group`);
 
 /* UNDER CONSTRUCTION */
 
@@ -36,7 +35,7 @@ class AccessController {
 
     req.session.groupname = `Test Group`;
     req.session.groupId = testGroupId;
-    res.redirect(`home`);
+    res.redirect(`/`);
   }
 
   /* UNDER CONSTRUCTION */

@@ -1,8 +1,8 @@
-const { Database } = require(`./AbstractClasses/Database.js`);
+const { Model } = require(`./AbstractClasses/Model.js`);
 
-class Quiz extends Database {
+class Quiz extends Model {
   constructor(req) {
-    super();
+    super(req);
     this.elementtype = `quiz`;
     this.table = `quiz`;
     // Session

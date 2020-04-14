@@ -4,7 +4,7 @@ const { Evaluation } = require(`./AbstractClasses/Evaluation.js`);
 
 class Flashcard extends Evaluation {
   constructor(req) {
-    super();
+    super(req);
     this.elementtype = `flashcard`;
     this.table = `flashcard`;
     // Session
